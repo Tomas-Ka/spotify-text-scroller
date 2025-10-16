@@ -24,3 +24,6 @@ Options:
 git clone https://github.com/S0raWasTaken/spotify-text-scroller
 cargo install --path spotify-text-scroller
 ```
+
+### Preview
+![](resources/scr0ll.gif)
