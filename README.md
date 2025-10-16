@@ -1,5 +1,5 @@
 # spotify-text-scroller
-This project was made with waybar in mind, here's my module config:
+This project was made with waybar in mind, here's my extremely simple module:
 ```json
 "custom/spotify": {
   "exec": "scr0ll"
