@@ -147,7 +147,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spotify-grabber"
+name = "scr0ll"
 version = "0.1.0"
 dependencies = [
  "clap",
