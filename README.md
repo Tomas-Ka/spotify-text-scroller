@@ -20,6 +20,9 @@ Options:
 ```
 
 ### Installing
+Make sure to install [playerctl](https://github.com/altdesktop/playerctl) for your distro, or else
+it won't work. Blame [this crate](https://crates.io/crates/playerctl).
+
 ```sh
 git clone https://github.com/S0raWasTaken/spotify-text-scroller
 cargo install --path spotify-text-scroller
