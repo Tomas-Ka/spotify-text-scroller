@@ -4,7 +4,7 @@ This project was made with waybar in mind, here's my extremely simple module:
 
 ```json
 "custom/spotify": {
-  "exec": "scr0ll"
+  "exec": "spotify-scroller"
 },
 ```
 
