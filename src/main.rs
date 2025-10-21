@@ -49,13 +49,12 @@ fn main() -> ! {
 
 fn update_string(last_string: &str, disable_author: bool) -> String {
     let TrackMetadata { artist, title, .. } = PlayerCtl::metadata();
-    let new_string: String;
 
-    if !disable_author {
-        new_string = format!("{artist} - {title}");
+    let new_string = if !disable_author {
+        format!("{artist} - {title}")
     } else {
-        new_string = format!("{title}");
-    }
+        title
+    };
 
     if last_string != new_string {
         new_string
