@@ -18,9 +18,17 @@ struct Cli {
     #[arg(short, long, default_value_t = 300)]
     wait_time: u64,
 
-    /// Custom icon
-    #[arg(short, long, default_value_t = String::from("\u{f1bc} "))]
-    custom_icon: String,
+    /// Icon
+    #[arg(short, long, default_value_t = String::from("\u{f1bc}"))]
+    icon: String,
+
+    /// Disable icon
+    #[arg(long, default_value_t = false)]
+    disable_icon: bool,
+
+    /// Disable author
+    #[arg(long, default_value_t = false)]
+    disable_author: bool,
 }
 
 fn main() -> ! {
@@ -28,8 +36,8 @@ fn main() -> ! {
     let mut string: String = String::new();
     let mut index = 0;
     loop {
-        string = update_string(&string);
-        print_string(&string, index, cli.length, &cli.custom_icon);
+        string = update_string(&string, cli.disable_author);
+        print_string(&string, index, cli.length, &cli.icon, cli.disable_icon);
         sleep(Duration::from_millis(cli.delay));
         index += 1;
         if index > string.len() + 3 {
@@ -39,9 +47,16 @@ fn main() -> ! {
     }
 }
 
-fn update_string(last_string: &str) -> String {
+fn update_string(last_string: &str, disable_author: bool) -> String {
     let TrackMetadata { artist, title, .. } = PlayerCtl::metadata();
-    let new_string = format!("{artist} - {title}");
+    let new_string: String;
+
+    if !disable_author {
+        new_string = format!("{artist} - {title}");
+    } else {
+        new_string = format!("{title}");
+    }
+
     if last_string != new_string {
         new_string
     } else {
@@ -49,14 +64,16 @@ fn update_string(last_string: &str) -> String {
     }
 }
 
-fn print_string(string: &str, index: usize, length: usize, custom_icon: &str) {
+fn print_string(string: &str, index: usize, length: usize, icon: &str, disable_icon: bool) {
+    let mut s = String::new();
+    if !disable_icon {
+        s.push_str(icon);
+    }
     if string.len() > length {
         let scroll_substring = string.to_owned() + " | " + string;
-        println!(
-            "{custom_icon}{}",
-            &scroll_substring.substring(index, index + length)
-        )
+        s.push_str(scroll_substring.substring(index, index + length));
     } else {
-        println!("{custom_icon}{}", &string);
+        s.push_str(string);
     }
+    println!("{}", s);
 }
